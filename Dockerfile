@@ -12,6 +12,8 @@ RUN apt-get update && \
 # Copy Python requirements.txt file into image (list of common dependencies)
 COPY requirements.txt  .
 
+# Copy test scripts
+COPY /container-tests  /container-tests
+
 # Install Python dependencies defined in requirements
 RUN  pip3 install -r requirements.txt
-

@@ -2,7 +2,7 @@
 <!-- ![aws build status]() -->
 
 ### **Description**:
-This repository is to define the image to be used for the development environments as well as the base container for the lambda functions. 
+This repository is to define the image to be used for the development environments (vscode `.devcontainers`) as well as the base container for the lambda functions. It includes all needed packages for development.
 
 This container is built and pushed to the public repo ECR automatically by AWS Codebuild.
 
@@ -39,6 +39,11 @@ This container is built and pushed to the public repo ECR automatically by AWS C
 - ipython (For easier debugging)
 - hermes_core (Custom Hermes Core Package)
 
+### **Tests:**
+Checks whether the container contains the specified OS and Python requirements using the Container Structure Test ([CST testing suite](https://github.com/GoogleContainerTools/container-structure-test)). 
+
+### **Development Environment Troubleshooting:**
+If you experience any issues in your development environment (`.devcontainer` environment on VSCode) when pulling this image from ECR, ensure you have the latest build by rebuilding your container to pull from latest.
 
 
 

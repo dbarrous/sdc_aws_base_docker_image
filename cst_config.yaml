@@ -1,0 +1,57 @@
+schemaVersion: '2.0.0' # CST Schema Version
+
+# Test if OS and Python Packages Installed
+commandTests:
+- name: 'apt-get'
+  command: 'apt-get'
+  args: ['help']
+  excludedError: ['.*FAIL.*']
+  expectedOutput: ['.*Usage.*']
+- name: 'git'
+  command: 'dpkg'
+  args: ['-s','git']
+  excludedError: ['.*FAIL.*']
+  expectedOutput: ['.*install ok installed.*']
+- name: 'make'
+  command: 'dpkg'
+  args: ['-s','make']
+  excludedError: ['.*FAIL.*']
+  expectedOutput: ['.*install ok installed.*']
+- name: 'curl'
+  command: 'dpkg'
+  args: ['-s','curl']
+  excludedError: ['.*FAIL.*']
+  expectedOutput: ['.*install ok installed.*']
+- name: 'python3.8'
+  command: 'dpkg'
+  args: ['-s','python3.8']
+  excludedError: ['.*FAIL.*']
+  expectedOutput: ['.*install ok installed.*']
+- name: 'pylint'
+  command: 'dpkg'
+  args: ['-s','pylint']
+  excludedError: ['.*FAIL.*']
+  expectedOutput: ['.*install ok installed.*']
+- name: 'pip3'
+  command: 'pip3'
+  args: ['help']
+  excludedError: ['.*FAIL.*']
+  expectedOutput: ['.*Usage.*']
+- name: 'python3'
+  command: 'python3'
+  args: ['container-tests/check_installed_py_packages.py']
+  excludedError: ['.*FAIL.*']
+  expectedOutput: ['.*SUCCESS.*']
+
+# Test if needed files exist
+fileExistenceTests:
+- name: 'Root'
+  path: '/'
+  shouldExist: true
+  uid: 0
+  gid: 0
+- name: 'Python Requirements'
+  path: '/requirements.txt'
+  shouldExist: true
+  uid: 0
+  gid: 0

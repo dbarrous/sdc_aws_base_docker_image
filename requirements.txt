@@ -2,7 +2,6 @@ numpy>=1.16.0
 astropy>=4.1.0
 awslambdaric # for use with interfacing with aws lambda
 sunpy
-git+https://github.com/HERMES-SOC/hermes_core/
 flake8 # for code style
 black # for code style
 tox
