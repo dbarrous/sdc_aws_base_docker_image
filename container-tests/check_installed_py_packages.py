@@ -19,7 +19,7 @@ with pathlib.Path("/requirements.txt").open() as requirements_txt:
         spec = importlib.util.find_spec(package_name)
         if spec is None and package_name not in EXCEPTION_LIST:
             print(package_name + " is not installed")
-            installed_flag = False
+            INSTALLED_FLAG = False
 
     STATUS = "SUCCESS: All Packages Installed" if INSTALLED_FLAG else "FAILED: Missing Package(s)"
     print(STATUS)
