@@ -1,4 +1,4 @@
-name: CST Image Testing
+name: Container Image Testing
 
 on:
   pull_request:

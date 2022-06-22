@@ -1,0 +1,24 @@
+name: Container Image Push Public ECR
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Configure AWS Credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        role-to-assume: arn:aws:iam::351967858401:role/github-actions-docker-lambda-ecr-role
+        aws-region: us-east-2
+    - uses: actions/checkout@v3
+    - name: Building & Testing the Docker image (With ECR Ratelimit Fix)
+      uses: ./.github/workflows/container-image-testing
+    - name: Tag Container Image
+      run: docker tag container-image:latest public.ecr.aws/w5r9l1c8/swsoc-docker-lambda-base:latest
+      
