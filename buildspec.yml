@@ -5,19 +5,19 @@ phases:
     commands:
       - echo Logging in to Amazon ECR...
       - aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin public.ecr.aws/w5r9l1c8
+      
   build:
     commands:
       - echo Build started on `date`
       - echo Building the Docker image...          
       - docker build -t swsoc-docker-lambda-base:latest .
       - docker tag swsoc-docker-lambda-base:latest public.ecr.aws/w5r9l1c8/swsoc-docker-lambda-base:latest
-  
+      - curl -LO https://storage.googleapis.com/container-structure-test/latest/container-structure-test-linux-amd64 && chmod +x container-structure-test-linux-amd64 && sudo mv container-structure-test-linux-amd64 /usr/local/bin/container-structure-test
+      - container-structure-test test --image swsoc-docker-lambda-base:latest --config cst_config.yaml
+      
   post_build:
     commands:
       - echo Build completed on `date`
       - echo Pushing the Docker image...
       - docker push public.ecr.aws/w5r9l1c8/swsoc-docker-lambda-base:latest
       - echo CST Testing
-      - curl -LO https://storage.googleapis.com/container-structure-test/latest/container-structure-test-linux-amd64 && chmod +x container-structure-test-linux-amd64 && sudo mv container-structure-test-linux-amd64 /usr/local/bin/container-structure-test
-      - container-structure-test test --image container-image:latest --config cst_config.yaml
- 
