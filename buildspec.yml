@@ -21,4 +21,3 @@ phases:
       - echo Pushing the Docker image...
       - docker push public.ecr.aws/w5r9l1c8/swsoc-docker-lambda-base:latest
       - echo CST Testing
- 
