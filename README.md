@@ -8,7 +8,6 @@ This repository is to define the image to be used for the development environmen
 
 This container is built and pushed to the public repo ECR automatically by AWS Codebuild.
 
-
 ### **Base Image**: Ubuntu 20.04 ([public.ecr.aws/lts/ubuntu:20.04_stable](https://gallery.ecr.aws/lts/ubuntu))
 
 ### **ECR Repo:** Docker Lambda Base Image [public.ecr.aws/w5r9l1c8/swsoc-docker-lambda-base:latest](https://gallery.ecr.aws/w5r9l1c8/swsoc-docker-lambda-base)
