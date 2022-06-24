@@ -43,5 +43,8 @@ This container is built and pushed to the public repo ECR automatically by AWS C
 ### **Tests:**
 Checks whether the container contains the specified OS and Python requirements using the Container Structure Test ([CST testing suite](https://github.com/GoogleContainerTools/container-structure-test)). 
 
+### **How to Contribute:**
+To make a change to this container image, please `fork` this repo, make the requested change and create a `Pull Request` with the change.
+
 ### **Development Environment Troubleshooting:**
 If you experience any issues in your development environment (`.devcontainer` environment on VSCode) when pulling this image from ECR, ensure you have the latest build by rebuilding your container to pull from latest.
