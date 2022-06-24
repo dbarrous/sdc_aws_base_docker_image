@@ -10,7 +10,7 @@ This container is built and pushed to the public repo ECR automatically by AWS C
 
 ### **Base Image**: Ubuntu 20.04 ([public.ecr.aws/lts/ubuntu:20.04_stable](https://gallery.ecr.aws/lts/ubuntu))
 
-### **ECR Repo:** Docker Lambda Base Image [public.ecr.aws/w5r9l1c8/swsoc-docker-lambda-base:latest](https://gallery.ecr.aws/w5r9l1c8/swsoc-docker-lambda-base)
+### **ECR Repo:** Docker Lambda Base Image ([public.ecr.aws/w5r9l1c8/swsoc-docker-lambda-base:latest](https://gallery.ecr.aws/w5r9l1c8/swsoc-docker-lambda-base))
 
 ### **Included OS Packages:**
 - git
