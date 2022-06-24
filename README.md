@@ -45,6 +45,3 @@ Checks whether the container contains the specified OS and Python requirements u
 
 ### **Development Environment Troubleshooting:**
 If you experience any issues in your development environment (`.devcontainer` environment on VSCode) when pulling this image from ECR, ensure you have the latest build by rebuilding your container to pull from latest.
-
-
-
