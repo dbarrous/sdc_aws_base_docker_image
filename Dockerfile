@@ -11,6 +11,8 @@ RUN apt-get update && \
 
 # Copy Python requirements.txt file into image (list of common dependencies)
 COPY requirements.txt  .
+COPY test.txt  .
+
 
 # Copy test scripts
 COPY /container-tests  /container-tests
