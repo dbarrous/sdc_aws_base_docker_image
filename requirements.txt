@@ -14,3 +14,4 @@ sphinx-automodapi # for documentation
 sphinx-changelog # for changelog in documentation
 towncrier # for building changelog for documentation
 ipython # for easier debugging
+hermes_core @ git+https://github.com/HERMES-SOC/hermes_core/ # for hermes instrument packages

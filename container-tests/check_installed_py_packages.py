@@ -15,11 +15,12 @@ with pathlib.Path("/requirements.txt").open() as requirements_txt:
     # Iterate through packages on list and check if installed (unless on exception list)
     for package in PACKAGES:
         # Parse package name
-        package_name = str(package).split(">=")[0].replace("-", "_")
-        spec = importlib.util.find_spec(package_name)
-        if spec is None and package_name not in EXCEPTION_LIST:
-            print(package_name + " is not installed")
-            INSTALLED_FLAG = False
+        package_name = str(package).split(">=")[0].split("@")[0].replace("-", "_")
+        if package_name not in EXCEPTION_LIST:
+            spec = importlib.util.find_spec(package_name)
+            if spec is None:
+                print(package_name + " is not installed")
+                INSTALLED_FLAG = False
 
     STATUS = "SUCCESS: All Packages Installed" if INSTALLED_FLAG else "FAILED: Missing Package(s)"
     print(STATUS)
