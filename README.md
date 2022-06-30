@@ -38,6 +38,7 @@ This container is built and pushed to the public repo ECR automatically by AWS C
 - sphinx-changelog (for changelog in documentation)
 - towncrier (For building changelog for documentation)
 - ipython (For easier debugging)
+- hermes core (For intrument packages)
 
 ### **Tests:**
 Checks whether the container contains the specified OS and Python requirements using the Container Structure Test ([CST testing suite](https://github.com/GoogleContainerTools/container-structure-test)). 
