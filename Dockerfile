@@ -12,6 +12,11 @@ RUN apt-get update && \
 # Copy Python requirements.txt file into image (list of common dependencies)
 COPY requirements.txt  .
 
+# For container lambda functions
+RUN curl -Lo /usr/local/bin/aws-lambda-rie \
+    https://github.com/aws/aws-lambda-runtime-interface-emulator/releases/latest/download/aws-lambda-rie && \
+    chmod +x /usr/local/bin/aws-lambda-rie
+
 # Copy test scripts
 COPY /container-tests  /container-tests
 
