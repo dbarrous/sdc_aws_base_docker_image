@@ -20,6 +20,7 @@ This container is built and pushed to the public repo ECR automatically by AWS C
 - python3-pip
 - python3.8-dev
 - pylint
+- aws-lambda-rie
 
 ### **Included Python Packages:**
 - numpy (v1.16.0)
@@ -39,6 +40,7 @@ This container is built and pushed to the public repo ECR automatically by AWS C
 - towncrier (For building changelog for documentation)
 - ipython (For easier debugging)
 - hermes core (For intrument packages)
+- boto3 (For AWS SDK)
 
 ### **Tests:**
 Checks whether the container contains the specified OS and Python requirements using the Container Structure Test ([CST testing suite](https://github.com/GoogleContainerTools/container-structure-test)). 
