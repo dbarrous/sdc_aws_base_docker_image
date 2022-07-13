@@ -13,6 +13,7 @@ phases:
       - docker build -t swsoc-docker-lambda-base:latest .
       - docker tag swsoc-docker-lambda-base:latest public.ecr.aws/w5r9l1c8/swsoc-docker-lambda-base:latest
       - curl -LO https://storage.googleapis.com/container-structure-test/latest/container-structure-test-linux-amd64 && chmod +x container-structure-test-linux-amd64 && sudo mv container-structure-test-linux-amd64 /usr/local/bin/container-structure-test
+      - echo CST Testing
       - container-structure-test test --image swsoc-docker-lambda-base:latest --config cst_config.yaml
       
   post_build:
@@ -20,7 +21,7 @@ phases:
       - echo Build completed on `date`
       - echo Pushing the Docker image...
       - docker push public.ecr.aws/w5r9l1c8/swsoc-docker-lambda-base:latest
+      - echo Tagging the Docker image...
       - docker tag swsoc-docker-lambda-base:latest public.ecr.aws/w5r9l1c8/swsoc-docker-lambda-base:$(git log -1 --pretty=%h)
       - docker push public.ecr.aws/w5r9l1c8/swsoc-docker-lambda-base:$(git log -1 --pretty=%h)
-      - echo CST Testing
  
