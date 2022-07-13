@@ -20,7 +20,6 @@ This container is built and pushed to the public repo ECR automatically by AWS C
 - python3-pip
 - python3.8-dev
 - pylint
-- aws-lambda-rie
 
 ### **Included Python Packages:**
 - numpy (v1.16.0)
