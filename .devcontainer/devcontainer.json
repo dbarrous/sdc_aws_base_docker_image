@@ -12,7 +12,7 @@
 		"python.languageServer": "Pylance",
 		"python.linting.enabled": true,
 		"python.linting.pylintEnabled": true,
-		"python.formatting.blackPath": "/home/vscode/.local/bin/black",
+		"python.formatting.blackPath": "/usr/local/bin/black",
 		"python.formatting.provider": "black",
 		"python.formatting.blackArgs": [
 			"--line-length",
@@ -26,8 +26,8 @@
 		"python.linting.banditPath": "/usr/local/py-utils/bin/bandit",
 		"python.linting.flake8Path": "/usr/local/py-utils/bin/flake8",
 		"python.linting.mypyPath": "/usr/local/py-utils/bin/mypy",
-		"python.linting.pycodestylePath": "/home/vscode/.local/bin/pycodestyle",
-		"python.linting.pydocstylePath": "/home/vscode/.local/bin/pydocstyle",
+		"python.linting.pycodestylePath": "/usr/local/bin/pycodestyle",
+		"python.linting.pydocstylePath": "/usr/local/bin/pydocstyle",
 		"python.linting.pylintPath": "/usr/bin/pylint",
 		"terminal.integrated.profiles.linux": {
 			"bash (login)": {
@@ -43,7 +43,7 @@
 		"ms-python.python",
 		"ms-python.vscode-pylance",
 		"marklarah.pre-commit-vscode"
-	],
+	]
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
 	// "forwardPorts": [],
 	// Use 'postCreateCommand' to run commands after the container is created.
