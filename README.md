@@ -1,6 +1,6 @@
 # Docker Lambda Base Image Repository
 
-| **CodeBuild Status** |![aws build status](https://codebuild.us-east-2.amazonaws.com/badges?uuid=eyJlbmNyeXB0ZWREYXRhIjoic2VuODNucFFqN0VqbXlycWRzNmJFQWJ4OG9JU25EbldhZlFjMDlpemRvMXNpN0ptVFJwTkx0TW9WNGVYdDhHVEdnOGpkMUs5TTljVnhPenlNYmN5cmJrPSIsIml2UGFyYW1ldGVyU3BlYyI6ImNtUGRvVkw1M1h0RFVZMTUiLCJtYXRlcmlhbFNldFNlcmlhbCI6MX0%3D&branch=main)|
+| **CodeBuild Status** |![aws build status](https://codebuild.us-east-2.amazonaws.com/badges?uuid=eyJlbmNyeXB0ZWREYXRhIjoieGwxQ2UvcUxkRHRDNldsa2RPVWN0eEo3YjU3VUw3Ym50eUlBV0Y1c29qTFZLcUI0RjV1djBpTmN1dGMySWZsYjAyQ0lDWmtMVXIwSFlKTG9GaGtRMU40PSIsIml2UGFyYW1ldGVyU3BlYyI6IkdyOUZZWHJ2OVhSRHZDUTMiLCJtYXRlcmlhbFNldFNlcmlhbCI6MX0%3D&branch=main)|
 |-|-|
 
 ### **Description**:
@@ -20,6 +20,10 @@ This container is built and pushed to the public repo ECR automatically by AWS C
 - python3-pip
 - python3.8-dev
 - pylint
+- wget
+- cdf38_0-dist
+- libncurses5-dev
+- gcc
 
 ### **Included Python Packages:**
 - numpy (v1.16.0)
@@ -40,6 +44,10 @@ This container is built and pushed to the public repo ECR automatically by AWS C
 - ipython (For easier debugging)
 - hermes core (For intrument packages)
 - boto3 (For AWS SDK)
+- matplotlib (Required by spacepy but best to explicitly install it)
+- scipy (Required by spacepy but best to explicitly install it)
+- spacepy (For cdf file support)
+- ipykernel (For jupyter notebook)
 
 ### **Tests:**
 Checks whether the container contains the specified OS and Python requirements using the Container Structure Test ([CST testing suite](https://github.com/GoogleContainerTools/container-structure-test)). 
