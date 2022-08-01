@@ -19,3 +19,4 @@ boto3 # for aws sdk
 matplotlib # required by spacepy but best to explicitly install it
 scipy # required by spacepy but best to explicitly install it
 spacepy # for cdf file support
+ipykernel # for jupyter notebook
