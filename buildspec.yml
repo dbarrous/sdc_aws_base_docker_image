@@ -21,5 +21,19 @@ phases:
       - echo Build completed on `date`
       - echo Pushing the Docker image...
       - docker push public.ecr.aws/w5r9l1c8/swsoc-docker-lambda-base:latest
+      - |
+      
+        echo "Docker Git Release Tag Script"
 
- 
+        TRIGGER=$CODEBUILD_WEBHOOK_TRIGGER
+
+        if [[ $TRIGGER == *"branch/main"* ]];then
+          echo "Building using branch/main source, not tagging"
+        fi    
+
+        if [[ $TRIGGER == *"tag/"* ]];then
+          TAG=${TRIGGER:4}
+          echo "Building using tag release, tagging image with $TAG"
+          docker tag swsoc-docker-lambda-base:latest public.ecr.aws/w5r9l1c8/swsoc-docker-lambda-base:$(printenv TAG)
+          docker push public.ecr.aws/w5r9l1c8/swsoc-docker-lambda-base:$(printenv TAG)
+        fi    
