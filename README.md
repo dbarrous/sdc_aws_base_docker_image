@@ -4,7 +4,7 @@
 |-|-|
 
 ### **Description**:
-This repository is to define the image to be used for the development environments (vscode `.devcontainers`) as well as the base container for the lambda functions. It includes all needed packages for development.
+This repository is to define the image to be used for the development environments (vscode `.devcontainers`) as well as the base container for the lambda functions. It includes all needed packages for development
 
 This container is built and pushed to the public repo ECR automatically by AWS Codebuild.
 
