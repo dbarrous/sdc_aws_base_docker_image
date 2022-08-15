@@ -9,7 +9,6 @@ pytest # for testing
 pytest-astropy
 pytest-cov
 pre-commit
-setuptools==63.4.2
 sphinx # for documentation
 sphinx-automodapi # for documentation
 sphinx-changelog # for changelog in documentation
@@ -18,6 +17,6 @@ ipython # for easier debugging
 hermes_core @ git+https://github.com/HERMES-SOC/hermes_core/ # for hermes instrument packages
 boto3 # for aws sdk
 matplotlib # required by spacepy but best to explicitly install it
-scipy==1.8.1 # required by spacepy but best to explicitly install it
+scipy # required by spacepy but best to explicitly install it
 spacepy # for cdf file support
 ipykernel # for jupyter notebook
