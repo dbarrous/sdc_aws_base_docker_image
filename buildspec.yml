@@ -35,5 +35,10 @@ phases:
           echo "Building using tag release, tagging image with $TAG"
           docker tag swsoc-docker-lambda-base:latest public.ecr.aws/w5r9l1c8/swsoc-docker-lambda-base:$(printenv TAG)
           docker push public.ecr.aws/w5r9l1c8/swsoc-docker-lambda-base:$(printenv TAG)
-        fi    
+        fi
+        
       - echo Build completed on `date`
+      
+      - echo Starting Processing Function Codebuild Projects
+      - aws codebuild start-build --project-name build_sdc_aws_processing_lambda --region us-east-2
+
