@@ -6,7 +6,7 @@ FROM public.ecr.aws/lts/ubuntu:20.04_stable
 # Line >=14 installs cdflib
 RUN apt-get update && \
     apt-get -y upgrade && \
-    apt-get -y install --no-install-recommends -y python3.8 python3-pip python3.8-dev python3-distutils pylint && \
+    apt-get -y install --no-install-recommends -y python3.8 python3-pip python3.8-dev pylint && \
     apt-get -y install git && \
     apt-get -y install make && \
     apt-get -y install curl && \
@@ -31,4 +31,5 @@ COPY requirements.txt  .
 COPY /container-tests  /container-tests
 
 # Install Python dependencies defined in requirements
+RUN  apt-get install python3-distutils --reinstall
 RUN  pip3 install -r requirements.txt
