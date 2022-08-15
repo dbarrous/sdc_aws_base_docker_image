@@ -31,5 +31,5 @@ COPY requirements.txt  .
 COPY /container-tests  /container-tests
 
 # Install Python dependencies defined in requirements
-RUN  apt-get install python3-distutils --reinstall
+RUN  pip3 install --upgrade pip setuptools wheel
 RUN  pip3 install -r requirements.txt
