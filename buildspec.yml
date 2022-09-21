@@ -16,9 +16,7 @@ phases:
       - apt-get update && apt-get install -y python3-pip
       - apt-get install make graphviz -y
       - pip3 install -r requirements.txt
-      - cd docs
       - make html
-      - cd ..
       - echo CST Testing
       - container-structure-test test --image swsoc-docker-lambda-base:latest --config cst_config.yaml
       - echo Pushing the Docker image...
