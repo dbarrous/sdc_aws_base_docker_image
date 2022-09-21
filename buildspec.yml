@@ -13,32 +13,20 @@ phases:
       - docker build -t swsoc-docker-lambda-base:latest .
       - docker tag swsoc-docker-lambda-base:latest public.ecr.aws/w5r9l1c8/swsoc-docker-lambda-base:latest
       - curl -LO https://storage.googleapis.com/container-structure-test/latest/container-structure-test-linux-amd64 && chmod +x container-structure-test-linux-amd64 && sudo mv container-structure-test-linux-amd64 /usr/local/bin/container-structure-test
-      
+      - apt-get update && apt-get install -y python3-pip
+      - apt-get install make graphviz -y
+      - pip3 install -r requirements.txt
+      - cd docs
+      - make html
+      - cd ..
       - echo CST Testing
       - container-structure-test test --image swsoc-docker-lambda-base:latest --config cst_config.yaml
-      
       - echo Pushing the Docker image...
       - docker push public.ecr.aws/w5r9l1c8/swsoc-docker-lambda-base:latest
+
       
-      - |
-      
-        echo "Docker Git Release Tag Script"
-
-        TRIGGER=$CODEBUILD_WEBHOOK_TRIGGER
-
-        if [[ $TRIGGER == *"branch/main"* ]];then
-          echo "Building using branch/main source, not tagging"
-        fi    
-
-        if [[ $TRIGGER == *"tag/"* ]];then
-          TAG=${TRIGGER:4}
-          echo "Building using tag release, tagging image with $TAG"
-          docker tag swsoc-docker-lambda-base:latest public.ecr.aws/w5r9l1c8/swsoc-docker-lambda-base:$(printenv TAG)
-          docker push public.ecr.aws/w5r9l1c8/swsoc-docker-lambda-base:$(printenv TAG)
-        fi
-        
+  post_build:
+    commands:
       - echo Build completed on `date`
-      
-      - echo Starting Processing Function Codebuild Projects
-      - aws codebuild start-build --project-name build_sdc_aws_processing_lambda --region us-east-2
 
+ 
