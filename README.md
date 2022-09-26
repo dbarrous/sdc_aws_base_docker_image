@@ -1,6 +1,6 @@
 # Docker Lambda Base Image Repository
 
-| **CodeBuild Status** |![aws build status](https://codebuild.us-east-2.amazonaws.com/badges?uuid=eyJlbmNyeXB0ZWREYXRhIjoic2VuODNucFFqN0VqbXlycWRzNmJFQWJ4OG9JU25EbldhZlFjMDlpemRvMXNpN0ptVFJwTkx0TW9WNGVYdDhHVEdnOGpkMUs5TTljVnhPenlNYmN5cmJrPSIsIml2UGFyYW1ldGVyU3BlYyI6ImNtUGRvVkw1M1h0RFVZMTUiLCJtYXRlcmlhbFNldFNlcmlhbCI6MX0%3D&branch=main)|
+| **CodeBuild Status** |![aws build status](https://codebuild.us-east-2.amazonaws.com/badges?uuid=eyJlbmNyeXB0ZWREYXRhIjoieGwxQ2UvcUxkRHRDNldsa2RPVWN0eEo3YjU3VUw3Ym50eUlBV0Y1c29qTFZLcUI0RjV1djBpTmN1dGMySWZsYjAyQ0lDWmtMVXIwSFlKTG9GaGtRMU40PSIsIml2UGFyYW1ldGVyU3BlYyI6IkdyOUZZWHJ2OVhSRHZDUTMiLCJtYXRlcmlhbFNldFNlcmlhbCI6MX0%3D&branch=main)|
 |-|-|
 | **Docs Status** |![Documentation Status](https://readthedocs.org/projects/sdc-aws-base-docker-image/badge/?version=latest)
 
