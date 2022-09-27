@@ -15,7 +15,7 @@ sphinx-changelog # for changelog in documentation
 sphinx_rtd_theme
 towncrier # for building changelog for documentation
 ipython # for easier debugging
-hermes_core @ git+https://github.com/ehsteve/hermes_core.git@l0_filename # for hermes instrument packages
+hermes_core @ git+https://github.com/HERMES-SOC/hermes_core.git # for hermes instrument packages
 boto3 # for aws sdk
 matplotlib # required by spacepy but best to explicitly install it
 scipy # required by spacepy but best to explicitly install it
