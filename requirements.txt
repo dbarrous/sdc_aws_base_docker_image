@@ -1,22 +1,20 @@
 numpy>=1.16.0
 astropy>=4.1.0
-awslambdaric # for use with interfacing with aws lambda
-sunpy
+sunpy # not currently needed
 flake8 # for code style
 black # for code style
-tox
 pytest # for testing
-pytest-astropy
-pytest-cov
-pre-commit
+pytest-astropy # for testing helpers
+pytest-cov # for testing coverage
+pre-commit # for pre-commit checks
+setuptools_scm # for version number
 sphinx # for documentation
 sphinx-automodapi # for documentation
 sphinx-changelog # for changelog in documentation
-sphinx_rtd_theme
-towncrier # for building changelog for documentation
 ipython # for easier debugging
 hermes_core @ git+https://github.com/HERMES-SOC/hermes_core.git # for hermes instrument packages
 boto3 # for aws sdk
+awslambdaric # for use with interfacing with aws lambda
 matplotlib # required by spacepy but best to explicitly install it
 scipy # required by spacepy but best to explicitly install it
 spacepy # for cdf file support
