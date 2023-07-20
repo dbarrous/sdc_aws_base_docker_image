@@ -1,8 +1,8 @@
 .. _testing:
 
-******************
+**************************************
 CI/CD Pipeline and Testing Guidelines
-******************
+**************************************
 
 This section describes the testing framework and format standards for tests.
 For testing of the container images, we make use of Container Structure Tests framework that allows us to test the structure of the image. The tests are written in YAML format and are executed by the framework. 
@@ -121,7 +121,7 @@ To learn more about AWS Codebuild, please refer to the official documentation:
 `AWS Codebuild <https://docs.aws.amazon.com/codebuild/latest/userguide/welcome.html>`_
 
 Diagram of Full CI/CD Pipeline
--------------------
+------------------------------
 .. graphviz::
 
    digraph CI_CD_Pipeline {
