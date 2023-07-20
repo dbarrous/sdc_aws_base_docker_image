@@ -1,0 +1,27 @@
+name: Build CDF Library
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Install dependencies
+        run: sudo apt-get update && sudo apt-get -y install gfortran libncurses5-dev
+
+      - name: Download and extract CDF library
+        run: |
+          wget https://spdf.gsfc.nasa.gov/pub/software/cdf/dist/cdf38_0/cdf38_0-dist-cdf.tar.gz
+          tar zxvpf cdf38_0-dist-cdf.tar.gz && rm cdf38_0-dist-cdf.tar.gz
+
+      - name: Build CDF library
+        run: |
+          cd cdf38_0-dist
+          make OS=linux ENV=gnu all
+
+      - name: Install CDF library
+        run: |
+          cd cdf38_0-dist
+          sudo make INSTALLDIR=/usr/local/cdf install
