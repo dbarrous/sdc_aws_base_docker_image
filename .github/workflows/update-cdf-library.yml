@@ -11,6 +11,8 @@ jobs:
     runs-on: ubuntu-22.04
 
     steps:
+      - uses: actions/checkout@v3 # Checkout the repository
+      
       - name: Install dependencies
         run: sudo apt-get update && sudo apt-get -y install gfortran libncurses5-dev
 
