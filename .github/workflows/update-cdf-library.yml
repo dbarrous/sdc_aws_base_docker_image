@@ -120,6 +120,7 @@ jobs:
           S3_BUCKET_NAME="${{ secrets.AWS_S3_BUCKET_NAME }}"
           FILENAME="${{ steps.build_cdf.outputs.folder_name }}/latest.zip"
           aws s3 cp $FILENAME s3://$S3_BUCKET_NAME/cdf-binaries/latest.zip
+          aws s3 cp $FILENAME s3://$S3_BUCKET_NAME/cdf-binaries/${{ steps.build_cdf.outputs.folder_name }}.zip
       
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v5.0.2
