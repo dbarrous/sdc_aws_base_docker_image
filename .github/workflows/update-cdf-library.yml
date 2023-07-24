@@ -58,7 +58,7 @@ jobs:
             echo "Updating CDF library version in Dockerfile..."
             awk -v latest_ver="$PARSED_LATEST_VERSION" '/Version: cdf/{gsub(/Version: cdf[^"]*/, "Version: " latest_ver)} 1' Dockerfile > Dockerfile.updated
             mv Dockerfile.updated Dockerfile
-            awk -v latest_ver="$PARSED_LATEST_VERSION" '/^RUN.*cdf[0-9._-]*-dist-cdf\.zip/{gsub(/unzip cdf[0-9._-]*-dist-cdf\.zip/, "unzip " latest_ver ".zip")} 1' Dockerfile.updated > Dockerfile.updated
+            awk -v latest_ver="$PARSED_LATEST_VERSION" '/^RUN.*cdf[0-9._-]*-dist-cdf\.zip/{gsub(/unzip cdf[0-9._-]*-dist-cdf\.zip/, "unzip " latest_ver ".zip")} 1' Dockerfile > Dockerfile.updated
             mv Dockerfile.updated Dockerfile
 
             echo is_up_to_date='' >> $GITHUB_OUTPUT
@@ -134,5 +134,5 @@ jobs:
         if: steps.check_maintainer.outputs.is_maintainer != '' && steps.check_latest_version.outputs.is_up_to_date == '' # Only run this step if the user is a maintainer and the CDF library is not up to date
         uses: peter-evans/create-pull-request@v5.0.2
         with:
-          title: 'Update CDF library to latest version (${{ steps.check_latest_version.outputs.cdf_filename }})'
-          body: 'Updates CDF library to latest version (${{ steps.check_latest_version.outputs.cdf_filename }})'
+          title: 'Update CDF library to latest version (${{ steps.check_latest_version.outputs.latest_version }})'
+          body: 'Updates CDF library to latest version (${{ steps.check_latest_version.outputs.latest_version }})'
