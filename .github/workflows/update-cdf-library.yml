@@ -34,7 +34,15 @@ jobs:
 
           echo "Latest CDF version: $FILENAME"
           echo cdf_url=$URL >> $GITHUB_OUTPUT
-          echo cdf_filename=$FILENAME >> $GITHUB_OUTPUT
+          # Extract the line containing the CDF version
+          CDF_VERSION_LINE=$(grep -oP 'Version: cdf[^"]*' Dockerfile)
+
+          # Extract the version number from the line using awk and sed
+          CDF_VERSION=$(echo "$CDF_VERSION_LINE" | awk '{print $NF}' | sed 's/[^0-9._-]//g')
+
+          # Print the extracted CDF version
+          echo "CDF Version: $CDF_VERSION"
+          echo cdf_filename=$CDF_VERSION >> $GITHUB_OUTPUT
           echo latest_version=$FILENAME >> $GITHUB_OUTPUT
 
       - name: Download and extract CDF library
