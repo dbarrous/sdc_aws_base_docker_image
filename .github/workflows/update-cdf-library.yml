@@ -57,9 +57,10 @@ jobs:
           if [ "$FILENAME" != "$PARSED_LATEST_VERSION" ]; then
             echo "Updating CDF library version in Dockerfile..."
             awk -v latest_ver="$PARSED_LATEST_VERSION" '/Version: cdf/{gsub(/Version: cdf[^"]*/, "Version: " latest_ver)} 1' Dockerfile > Dockerfile.updated
+            mv Dockerfile.updated Dockerfile
             awk -v latest_ver="$PARSED_LATEST_VERSION" '/^RUN.*cdf[0-9._-]*-dist-cdf\.zip/{gsub(/unzip cdf[0-9._-]*-dist-cdf\.zip/, "unzip " latest_ver ".zip")} 1' Dockerfile.updated > Dockerfile.updated
             mv Dockerfile.updated Dockerfile
-            
+
             echo is_up_to_date='' >> $GITHUB_OUTPUT
           else
             echo "CDF library is up to date."
