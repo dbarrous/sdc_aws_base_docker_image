@@ -52,12 +52,11 @@ jobs:
           FILENAME="${{ steps.check_latest_version.outputs.cdf_filename }}"
       
           # Assuming the extracted folder has the same name as the tar.gz file without the extension
-          FOLDER_NAME="${FILENAME%.tar.gz}"
+          FOLDER_NAME="${FILENAME%-cdf.tar.gz}"
           cd "$FOLDER_NAME"
           make OS=linux ENV=gnu all
 
           echo "CDF library built successfully."
-          $BUILT_FOLDER_NAME=$(echo "$FOLDER_NAME" | sed 's/-cdf$//')
           echo built_folder_name=$BUILT_FOLDER_NAME >> $GITHUB_OUTPUT
 
       - name: Install CDF library
