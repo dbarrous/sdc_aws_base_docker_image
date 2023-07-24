@@ -15,7 +15,7 @@ RUN apt-get update && \
     apt-get -y install gfortran 
 
 # Download Pre-Built CDF Binaries - Version: cdf38_0-dist-cdf
-RUN https://sdc-aws-support.s3.amazonaws.com/cdf-binaries/cdf38_0-dist-cdf.zip && unzip cdf38_0-dist-cdf.zip && mv cdf /usr/local/cdf && rm cdf38_0-dist-cdf.zip
+RUN https://sdc-aws-support.s3.amazonaws.com/cdf-binaries/cdf38_0-dist-cdf.zip && unzip cdf38_0-dist-cdf.zip && mv cdf /usr/local/cdf
 
 # add cdf binaries to the path
 ENV PATH="${PATH}:/usr/local/cdf/bin"
