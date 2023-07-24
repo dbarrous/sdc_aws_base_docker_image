@@ -51,7 +51,7 @@ jobs:
           LATEST_VERSION="${{ steps.check_latest_version.outputs.latest_version }}"
           URL="${{ steps.check_latest_version.outputs.cdf_url }}"
           FILENAME="${{ steps.check_latest_version.outputs.cdf_filename }}"
-          PARSED_LATEST_VERSION="${LATEST_VERSION%-cdf.tar.gz}"
+          PARSED_LATEST_VERSION="${LATEST_VERSION%.tar.gz}"
           # Check if the current version matches the latest version
           if [ "$OLD_FILENAME" != "$PARSED_LATEST_VERSION" ]; then
             echo "Updating CDF library version in Dockerfile..."
