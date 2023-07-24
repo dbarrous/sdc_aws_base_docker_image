@@ -49,6 +49,7 @@ jobs:
             echo "Updating CDF library version in Dockerfile..."
             awk -v latest_ver="$LATEST_VERSION" '/Version: cdf/{gsub(/[0-9]+\.[0-9]+(\.[0-9]+)*-dist-cdf/, latest_ver)} 1' Dockerfile > Dockerfile.updated
             mv Dockerfile.updated Dockerfile
+            cat Dockerfile
           else
             echo "CDF library is up to date."
           fi
