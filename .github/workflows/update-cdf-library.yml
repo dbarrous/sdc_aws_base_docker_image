@@ -9,12 +9,21 @@ on:
 jobs:
   build:
     runs-on: ubuntu-22.04
-
     steps:
+      - name: Check if the user is a maintainer
+        id: check_maintainer
+        run: |
+          USERNAME="${{ github.actor }}"
+          REPO="${{ github.repository }}"
+          IS_MAINTAINER=$(curl -s -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" "https://api.github.com/repos/$REPO/collaborators" | jq -r ".[] | select(.login == \"$USERNAME\")")
+          echo "::set-output name=is_maintainer::$IS_MAINTAINER"
+
       - uses: actions/checkout@v3 # Checkout the repository
+        if: steps.check_maintainer.outputs.is_maintainer != '' # Only run this step if the user is a maintainer
 
       - name: Check for the latest version of CDF library
         id: check_latest_version
+        if: steps.check_maintainer.outputs.is_maintainer != '' # Only run this step if the user is a maintainer
         run: |
           URL="https://spdf.gsfc.nasa.gov/pub/software/cdf/dist/latest/linux/"
           FILENAME=$(curl -sL "$URL" | grep -oP 'href="[^"]*dist-cdf\.tar\.gz"' | awk -F '"' '!/\.md5$/ { print $2 }')
@@ -25,6 +34,7 @@ jobs:
           echo latest_version=$FILENAME >> $GITHUB_OUTPUT
 
       - name: Download and extract CDF library
+        if: steps.check_maintainer.outputs.is_maintainer != '' # Only run this step if the user is a maintainer
         run: |
           LATEST_VERSION="${{ steps.check_latest_version.outputs.latest_version }}"
           URL="${{ steps.check_latest_version.outputs.cdf_url }}"
@@ -43,10 +53,12 @@ jobs:
           tar zxvpf "$FILENAME" && rm "$FILENAME"
       
       - name: Install dependencies for Building CDF library
+        if: steps.check_maintainer.outputs.is_maintainer != ''
         run: sudo apt-get update && sudo apt-get -y install gfortran libncurses5-dev
 
       - name: Build CDF library
         id : build_cdf
+        if: steps.check_maintainer.outputs.is_maintainer != '' # Only run this step if the user is a maintainer
         run: |
           FILENAME="${{ steps.check_latest_version.outputs.cdf_filename }}"
       
@@ -59,6 +71,7 @@ jobs:
           echo folder_name=$FOLDER_NAME >> $GITHUB_OUTPUT
 
       - name: Install CDF library
+        if: steps.check_maintainer.outputs.is_maintainer != '' # Only run this step if the user is a maintainer
         run: |
           FOLDER_NAME="${{ steps.build_cdf.outputs.folder_name }}"
 
@@ -66,11 +79,13 @@ jobs:
           sudo make INSTALLDIR=~/cdf install
 
       - name: Zip CDF Library in home
+        if: steps.check_maintainer.outputs.is_maintainer != '' # Only run this step if the user is a maintainer
         run: |
           cd ~/
           zip -r latest.zip cdf
 
       - name: Upload CDF Library
+        if: steps.check_maintainer.outputs.is_maintainer != '' # Only run this step if the user is a maintainer
         uses: actions/upload-artifact@v2
         with:
           name: cdf
