@@ -95,6 +95,6 @@ jobs:
         if: steps.check_maintainer.outputs.is_maintainer != '' # Only run this step if the user is a maintainer
         uses: aws-actions/configure-aws-credentials@v2
         with:
-          role-to-assume: secrets.AWS_ROLE_TO_ASSUME
-          aws-region: secrets.AWS_REGION
+          role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
+          aws-region: ${{ secrets.AWS_REGION }}
       
