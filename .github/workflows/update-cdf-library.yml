@@ -38,7 +38,7 @@ jobs:
           CDF_VERSION_LINE=$(grep -oP 'Version: cdf[^"]*' Dockerfile)
 
           # Extract the version number from the line using awk and sed
-          CDF_VERSION=$(echo "$CDF_VERSION_LINE" | awk '{print $NF}' | sed 's/[^0-9._-]//g')
+          CDF_VERSION=$(echo "$CDF_VERSION_LINE" | sed -e 's/Version: //' | tr -d '\n')
 
           # Print the extracted CDF version
           echo "CDF Version: $CDF_VERSION"
