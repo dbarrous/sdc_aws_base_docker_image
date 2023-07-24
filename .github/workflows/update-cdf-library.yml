@@ -121,9 +121,9 @@ jobs:
           FILENAME="${{ steps.build_cdf.outputs.folder_name }}/latest.zip"
           LATEST_VERSION="${{ steps.check_latest_version.outputs.latest_version }}"
           PARSED_LATEST_VERSION="${LATEST_VERSION%.tar.gz}"
-          
+
           aws s3 cp $FILENAME s3://$S3_BUCKET_NAME/cdf-binaries/latest.zip
-          aws s3 cp $FILENAME s3://$S3_BUCKET_NAME/cdf-binaries/$LATEST_VERSION.zip
+          aws s3 cp $FILENAME s3://$S3_BUCKET_NAME/cdf-binaries/$PARSED_LATEST_VERSION.zip
       
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v5.0.2
