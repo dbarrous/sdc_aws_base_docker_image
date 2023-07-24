@@ -32,7 +32,7 @@ jobs:
           # Check if the current version matches the latest version
           if [ "$FILENAME" != "$LATEST_VERSION" ]; then
             echo "Updating CDF library version in Dockerfile..."
-            sed -i "s|Version: cdf[0-9_\.]*-dist-cdf|Version: ${FILENAME%.tar.gz}-dist-cdf|g" Dockerfile
+            awk -v latest_ver="$LATEST_VERSION" '/Version: cdf/{gsub(/[0-9]+\.[0-9]+(\.[0-9]+)*-dist-cdf/, latest_ver)} 1' Dockerfile > Dockerfile.updated
           else
             echo "CDF library is up to date."
             exit 0  # Exit the workflow as a success since CDF library is already up to date
