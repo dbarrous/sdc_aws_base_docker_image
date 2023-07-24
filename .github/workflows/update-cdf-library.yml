@@ -55,13 +55,12 @@ jobs:
           FOLDER_NAME="${FILENAME%-cdf.tar.gz}"
           cd "$FOLDER_NAME"
           make OS=linux ENV=gnu all
-
           echo "CDF library built successfully."
-          echo built_folder_name=$BUILT_FOLDER_NAME >> $GITHUB_OUTPUT
+          echo folder_name=$FOLDER_NAME >> $GITHUB_OUTPUT
 
       - name: Install CDF library
         run: |
-          FOLDER_NAME="${{ steps.build_cdf.outputs.built_folder_name }}"
+          FOLDER_NAME="${{ steps.build_cdf.outputs.folder_name }}"
 
           cd "$FOLDER_NAME"
           sudo make INSTALLDIR=~/cdf install
@@ -76,3 +75,5 @@ jobs:
         with:
           name: cdf
           path: ~/latest.zip
+
+      
