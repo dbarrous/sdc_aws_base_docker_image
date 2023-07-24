@@ -105,5 +105,6 @@ jobs:
       - name: Upload CDF Library to S3
         if: steps.check_maintainer.outputs.is_maintainer != '' # Only run this step if the user is a maintainer
         run: |
+          S3_BUCKET_NAME="${{ secrets.AWS_S3_BUCKET_NAME }}"
           aws s3 cp ~/latest.zip s3://$S3_BUCKET_NAME/cdf-binaries/latest.zip
       
