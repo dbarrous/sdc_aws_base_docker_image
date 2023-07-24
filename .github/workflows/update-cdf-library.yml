@@ -13,9 +13,6 @@ jobs:
     steps:
       - uses: actions/checkout@v3 # Checkout the repository
 
-      - name: Install dependencies
-        run: sudo apt-get update && sudo apt-get -y install gfortran libncurses5-dev
-
       - name: Check for the latest version of CDF library
         id: check_latest_version
         run: |
@@ -45,6 +42,9 @@ jobs:
           wget "${URL}${FILENAME}"
           tar zxvpf "$FILENAME" && rm "$FILENAME"
       
+      - name: Install dependencies for Building CDF library
+        run: sudo apt-get update && sudo apt-get -y install gfortran libncurses5-dev
+
       - name: Build CDF library
         id : build_cdf
         run: |
@@ -57,8 +57,6 @@ jobs:
           make OS=linux ENV=gnu all
           echo "CDF library built successfully."
           echo folder_name=$FOLDER_NAME >> $GITHUB_OUTPUT
-          cat ../Dockerfile
-          cat ../Dockerfile.updated
 
       - name: Install CDF library
         run: |
