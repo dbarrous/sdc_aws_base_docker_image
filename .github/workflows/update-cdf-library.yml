@@ -20,7 +20,7 @@ jobs:
         id: check_latest_version
         run: |
           URL="https://spdf.gsfc.nasa.gov/pub/software/cdf/dist/latest/linux/"
-          FILENAME=$(curl -sL "$URL" | awk -F '"' '$0 ~ /dist-cdf\.tar\.gz$/ { print $2 }')
+          FILENAME=$(curl -sL "$URL" | grep -oP '(?<=href=")[^"]*dist-cdf\.tar\.gz(?<!\.md5)[^"]*')
 
           echo "Latest CDF version: $FILENAME"
           echo cdf_url=$URL >> $GITHUB_OUTPUT
