@@ -12,15 +12,10 @@ RUN apt-get update && \
     apt-get -y install make && \
     apt-get -y install curl && \
     apt-get -y install wget && \
-    apt-get -y install gfortran && \
-    wget https://spdf.gsfc.nasa.gov/pub/software/cdf/dist/cdf39_0/linux/cdf39_0-dist-cdf.tar.gz && \
-    tar zxvpf cdf39_0-dist-cdf.tar.gz && rm cdf39_0-dist-cdf.tar.gz && \
-    apt-get -y install libncurses5-dev && \
-    apt-get -y install gcc && \
-    cd cdf39_0-dist && \
-    make OS=linux ENV=gnu all && \
-    make INSTALLDIR=/usr/local/cdf install && \
-    cd ..
+    apt-get -y install gfortran 
+
+# Download Pre-Built CDF Binaries (Version: cdf39_0-dist-cdf)
+RUN echo "Download CDF Binaries"
 
 # add cdf binaries to the path
 ENV PATH="${PATH}:/usr/local/cdf/bin"

@@ -14,19 +14,45 @@ jobs:
       - name: Install dependencies
         run: sudo apt-get update && sudo apt-get -y install gfortran libncurses5-dev
 
+      - name: Check for the latest version of CDF library
+        id: check_latest_version
+        run: |
+          URL="https://spdf.gsfc.nasa.gov/pub/software/cdf/dist/latest/linux/"
+          FILENAME=$(curl -sL "$URL" | grep -oP '(?<=href=")[^"]*dist-cdf\.tar\.gz[^"]*')
+          echo "Latest CDF version: $FILENAME"
+          echo "::set-output name=latest_version::$FILENAME"
+
       - name: Download and extract CDF library
         run: |
-          wget https://spdf.gsfc.nasa.gov/pub/software/cdf/dist/cdf38_0/cdf38_0-dist-cdf.tar.gz
-          tar zxvpf cdf38_0-dist-cdf.tar.gz && rm cdf38_0-dist-cdf.tar.gz
+          LATEST_VERSION="${{ steps.check_latest_version.outputs.latest_version }}"
+          # Get the latest file ending with dist-cdf.tar.gz from the endpoint
+          URL="https://spdf.gsfc.nasa.gov/pub/software/cdf/dist/latest/linux/"
+          FILENAME=$(curl -sL "$URL" | grep -oP '(?<=href=")[^"]*dist-cdf\.tar\.gz[^"]*')
 
+          # Check if the current version matches the latest version
+          if [ "$FILENAME" != "$LATEST_VERSION" ]; then
+            echo "Updating CDF library version in Dockerfile..."
+            sed -i "s|Version: cdf[0-9_\.]*-dist-cdf|Version: ${FILENAME%.tar.gz}-dist-cdf|g" Dockerfile
+          else
+            echo "CDF library is up to date."
+            exit 0  # Exit the workflow as a success since CDF library is already up to date
+          fi
+
+
+          # Download and extract the latest CDF library
+          wget "${URL}${FILENAME}"
+          tar zxvpf "$FILENAME" && rm "$FILENAME"
+      
       - name: Build CDF library
         run: |
-          cd cdf38_0-dist
+          # Assuming the extracted folder has the same name as the tar.gz file without the extension
+          FOLDER_NAME="${FILENAME%.tar.gz}"
+          cd "$FOLDER_NAME"
           make OS=linux ENV=gnu all
 
       - name: Install CDF library
         run: |
-          cd cdf38_0-dist
+          cd "$FOLDER_NAME"
           sudo make INSTALLDIR=~/cdf install
 
       - name: Zip CDF Library in home
@@ -39,4 +65,3 @@ jobs:
         with:
           name: cdf
           path: ~/latest.zip
-        
