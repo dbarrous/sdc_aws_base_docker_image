@@ -20,7 +20,7 @@ jobs:
           USERNAME="${{ github.actor }}"
           REPO="${{ github.repository }}"
           IS_MAINTAINER=$(curl -s -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" "https://api.github.com/repos/$REPO/collaborators" | jq -r ".[] | select(.login == \"$USERNAME\")")
-          echo "::set-output name=is_maintainer::$IS_MAINTAINER"
+          echo is_maintainer=$IS_MAINTAINER >> $GITHUB_OUTPUT
       
       - uses: actions/checkout@v3 # Checkout the repository
         if: steps.check_maintainer.outputs.is_maintainer != '' # Only run this step if the user is a maintainer
@@ -57,9 +57,10 @@ jobs:
             echo "Updating CDF library version in Dockerfile..."
             awk -v latest_ver="$PARSED_LATEST_VERSION" '/Version: cdf/{gsub(/Version: cdf[^"]*/, "Version: " latest_ver)} 1' Dockerfile > Dockerfile.updated
             mv Dockerfile.updated Dockerfile
-            cat Dockerfile
+            echo is_up_to_date='' >> $GITHUB_OUTPUT
           else
             echo "CDF library is up to date."
+            echo is_up_to_date='$PARSED_LATEST_VERSION' >> $GITHUB_OUTPUT
           fi
 
           # Download and extract the latest CDF library
@@ -67,12 +68,12 @@ jobs:
           tar zxvpf "$LATEST_VERSION" && rm "$LATEST_VERSION"
       
       - name: Install dependencies for Building CDF library
-        if: steps.check_maintainer.outputs.is_maintainer != ''
+        if: steps.check_maintainer.outputs.is_maintainer != '' && steps.check_latest_version.outputs.is_up_to_date == '' # Only run this step if the user is a maintainer and the CDF library is not up to date
         run: sudo apt-get update && sudo apt-get -y install gfortran libncurses5-dev
 
       - name: Build CDF library
         id : build_cdf
-        if: steps.check_maintainer.outputs.is_maintainer != '' # Only run this step if the user is a maintainer
+        if: steps.check_maintainer.outputs.is_maintainer != '' && steps.check_latest_version.outputs.is_up_to_date == '' # Only run this step if the user is a maintainer and the CDF library is not up to date
         run: |
           FILENAME="${{ steps.check_latest_version.outputs.latest_version }}"
       
@@ -85,37 +86,37 @@ jobs:
           echo folder_name=$FOLDER_NAME >> $GITHUB_OUTPUT
 
       - name: Install CDF library
-        if: steps.check_maintainer.outputs.is_maintainer != '' # Only run this step if the user is a maintainer
+        if: steps.check_maintainer.outputs.is_maintainer != '' && steps.check_latest_version.outputs.is_up_to_date == '' # Only run this step if the user is a maintainer and the CDF library is not up to date
         run: |
-          FOLDER_NAME="${{ steps.build_cdf.outputs.folder_name }}"
+            FOLDER_NAME="${{ steps.build_cdf.outputs.folder_name }}"
 
-          cd "$FOLDER_NAME"
-          sudo make INSTALLDIR=./cdf install
+            cd "$FOLDER_NAME"
+            sudo make INSTALLDIR=./cdf install
 
       - name: Zip CDF Library in home
-        if: steps.check_maintainer.outputs.is_maintainer != '' # Only run this step if the user is a maintainer
+        if: steps.check_maintainer.outputs.is_maintainer != '' && steps.check_latest_version.outputs.is_up_to_date == '' # Only run this step if the user is a maintainer and the CDF library is not up to date
         run: |
-          FOLDER_NAME="${{ steps.build_cdf.outputs.folder_name }}"
+              FOLDER_NAME="${{ steps.build_cdf.outputs.folder_name }}"
 
-          cd "$FOLDER_NAME"
-          zip -r latest.zip cdf
+              cd "$FOLDER_NAME"
+              zip -r latest.zip cdf
     
       - name: Upload CDF Library to GitHub Artifacts
-        if: steps.check_maintainer.outputs.is_maintainer != '' # Only run this step if the user is a maintainer
+        if: steps.check_maintainer.outputs.is_maintainer != '' && steps.check_latest_version.outputs.is_up_to_date == '' # Only run this step if the user is a maintainer and the CDF library is not up to date
         uses: actions/upload-artifact@v2
         with:
           name: cdf
           path: "${{ steps.build_cdf.outputs.folder_name }}/latest.zip"
           
       - name: Configure AWS Credentials For GitHub Actions
-        if: steps.check_maintainer.outputs.is_maintainer != '' # Only run this step if the user is a maintainer
+        if: steps.check_maintainer.outputs.is_maintainer != '' && steps.check_latest_version.outputs.is_up_to_date == '' # Only run this step if the user is a maintainer and the CDF library is not up to date
         uses: aws-actions/configure-aws-credentials@v2
         with:
           role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
           aws-region: ${{ secrets.AWS_REGION }}
 
       - name: Upload CDF Library to S3
-        if: steps.check_maintainer.outputs.is_maintainer != '' # Only run this step if the user is a maintainer
+        if: steps.check_maintainer.outputs.is_maintainer != '' && steps.check_latest_version.outputs.is_up_to_date == '' # Only run this step if the user is a maintainer and the CDF library is not up to date
         run: |
           S3_BUCKET_NAME="${{ secrets.AWS_S3_BUCKET_NAME }}"
           FILENAME="${{ steps.build_cdf.outputs.folder_name }}/latest.zip"
@@ -126,6 +127,7 @@ jobs:
           aws s3 cp $FILENAME s3://$S3_BUCKET_NAME/cdf-binaries/$PARSED_LATEST_VERSION.zip
       
       - name: Create Pull Request
+        if: steps.check_maintainer.outputs.is_maintainer != '' && steps.check_latest_version.outputs.is_up_to_date == '' # Only run this step if the user is a maintainer and the CDF library is not up to date
         uses: peter-evans/create-pull-request@v5.0.2
         with:
           title: 'Update CDF library to latest version (${{ steps.check_latest_version.outputs.cdf_filename }})'
