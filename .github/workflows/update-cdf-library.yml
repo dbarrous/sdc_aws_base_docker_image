@@ -39,7 +39,6 @@ jobs:
             awk -v latest_ver="$LATEST_VERSION" '/Version: cdf/{gsub(/[0-9]+\.[0-9]+(\.[0-9]+)*-dist-cdf/, latest_ver)} 1' Dockerfile > Dockerfile.updated
           else
             echo "CDF library is up to date."
-            exit 0  # Exit the workflow as a success since CDF library is already up to date
           fi
 
           # Download and extract the latest CDF library
@@ -53,11 +52,13 @@ jobs:
       
           # Assuming the extracted folder has the same name as the tar.gz file without the extension
           FOLDER_NAME="${FILENAME%-cdf.tar.gz}"
+          ls
           cd "$FOLDER_NAME"
           make OS=linux ENV=gnu all
           echo "CDF library built successfully."
           echo folder_name=$FOLDER_NAME >> $GITHUB_OUTPUT
-          cat Dockerfile
+          cat ../Dockerfile
+          cat ../Dockerfile.updated
 
       - name: Install CDF library
         run: |
