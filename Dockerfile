@@ -14,7 +14,7 @@ RUN apt-get update && \
     apt-get -y install wget && \
     apt-get -y install gfortran 
 
-# Download Pre-Built CDF Binaries (Version: cdf39_0-dist-cdf)
+# Download Pre-Built CDF Binaries (Version: cdf38_0-dist-cdf)
 RUN echo "Download CDF Binaries"
 
 # add cdf binaries to the path
