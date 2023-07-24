@@ -108,3 +108,8 @@ jobs:
           S3_BUCKET_NAME="${{ secrets.AWS_S3_BUCKET_NAME }}"
           aws s3 cp ~/latest.zip s3://$S3_BUCKET_NAME/cdf-binaries/latest.zip
       
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v4.2.0
+        with:
+          title: 'Update CDF library to latest version (${{ steps.check_latest_version.outputs.cdf_filename }})'
+          body: 'Updates CDF library to latest version (${{ steps.check_latest_version.outputs.cdf_filename }})'
