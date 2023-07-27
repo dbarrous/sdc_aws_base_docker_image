@@ -1,4 +1,4 @@
-name: Build CDF Library
+name: Update CDF Library
 
 on:
   workflow_dispatch:
