@@ -88,7 +88,6 @@ jobs:
       
           # Assuming the extracted folder has the same name as the tar.gz file without the extension
           FOLDER_NAME="${FILENAME%-cdf.tar.gz}"
-          ls
           cd "$FOLDER_NAME"
           make OS=linux ENV=gnu all
           echo "CDF library built successfully."
