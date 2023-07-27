@@ -11,38 +11,40 @@ This repository is to define the image to be used for the development environmen
 
 This container is built and pushed to the public repo ECR automatically by AWS Codebuild.
 
-### **Base Image**: Ubuntu 20.04 ([public.ecr.aws/lts/ubuntu:20.04_stable](https://gallery.ecr.aws/lts/ubuntu))
+### **Base Image**: Ubuntu 22.04 ([public.ecr.aws/lts/ubuntu:22.04_stable](https://gallery.ecr.aws/lts/ubuntu))
 
 ### **ECR Repo:** Docker Lambda Base Image ([public.ecr.aws/w5r9l1c8/swsoc-docker-lambda-base:latest](https://gallery.ecr.aws/w5r9l1c8/swsoc-docker-lambda-base))
 
-### **Included OS Packages:**
+## Included OS Packages
 - git
-- make
-- curl
+- wget
+- unzip
 - python3.8
 - python3-pip
-- python3.8-dev
 - pylint
 
-### **Included Python Packages:**
-- numpy (v1.16.0)
-- astropy (v4.1.0)
-- awslambdaric (For use with interfacing with aws lambda)
-- sunpy
-- flake8 (For code style)
-- black (For code style)
-- tox
-- pytest (For testing)
-- pytest-astropy (For testing)
-- pytest-cov (For testing)
-- pre-commit
-- sphinx (For documentation)
-- sphinx-automodapi (For documentation)
-- sphinx-changelog (for changelog in documentation)
-- towncrier (For building changelog for documentation)
-- ipython (For easier debugging)
-- hermes core (For intrument packages)
-- boto3 (For AWS SDK)
+## Included Python Packages
+- numpy (v1.24.4)
+- astropy (v5.2.2)
+- sunpy (v4.1.7)
+- flake8 (v6.0.0) (For code style)
+- black (v23.7.0) (For code style)
+- pytest (v7.4.0) (For testing)
+- pytest-astropy (v0.10.0) (For testing)
+- pytest-cov (v4.1.0) (For testing)
+- pre-commit (v3.3.3)
+- sphinx (v6.2.1) (For documentation)
+- sphinx-automodapi (v0.15.0) (For documentation)
+- sphinx-changelog (v1.3.0) (For documentation)
+- ipython (v8.12.2) (For easier debugging)
+- hermes core (For instrument packages)
+- boto3 (v1.28.4) (For AWS SDK)
+- awslambdaric (v2.0.4) (For use with interfacing with AWS Lambda)
+- matplotlib (v3.7.2)
+- scipy (v1.10.1)
+- spacepy (v0.4.1) (For CDF file support)
+- ipykernel (v6.24.0) (For Jupyter notebook)
+- ccsdspy (For parsing CCSDS binary files)
 
 ### **Tests:**
 Checks whether the container contains the specified OS and Python requirements using the Container Structure Test ([CST testing suite](https://github.com/GoogleContainerTools/container-structure-test)). 
@@ -52,3 +54,13 @@ To make a change to this container image, please `fork` this repo, make the requ
 
 ### **Development Environment Troubleshooting:**
 If you experience any issues in your development environment (`.devcontainer` environment on VSCode) when pulling this image from ECR, ensure you have the latest build by rebuilding your container to pull from latest.
+
+## Dockerfile Details
+This Docker image is built from the official Canonical Ubuntu 20.04 image. It updates the system and installs necessary packages such as git, unzip, python3.8, python3-pip, and pylint. 
+
+This Dockerfile also includes a process to download pre-built CDF binaries for data format support and copies a Python requirements.txt file into the image to be used for installing Python dependencies. 
+
+Furthermore, it contains a test script to check if the container includes the specified OS and Python requirements using the Container Structure Test. 
+
+The Dockerfile finally creates a user 'vscode' with sudo support to run the container.
+
