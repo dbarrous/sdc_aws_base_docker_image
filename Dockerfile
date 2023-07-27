@@ -8,8 +8,8 @@ RUN apt-get update && \
     apt-get -y install --no-install-recommends -y python3-pip pylint git wget unzip&& \
     ln -s /usr/bin/python3 /usr/bin/python
 
-# Download Pre-Built CDF Binaries - Version: cdf39_0-dist-cdf
-RUN wget https://sdc-aws-support.s3.amazonaws.com/cdf-binaries/cdf39_0-dist-cdf.zip && unzip cdf39_0-dist-cdf.zip && mv cdf /usr/local/
+# Download Pre-Built CDF Binaries - Version: cdf38_0-dist-cdf
+RUN wget https://sdc-aws-support.s3.amazonaws.com/cdf-binaries/cdf38_0-dist-cdf.zip && unzip cdf38_0-dist-cdf.zip && mv cdf /usr/local/
 
 # add cdf binaries to the path
 ENV CDF_LIB="/usr/local/cdf/lib"
