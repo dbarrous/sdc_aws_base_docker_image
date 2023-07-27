@@ -33,6 +33,7 @@ phases:
         echo Building the Docker image...          
         docker build -t ${IMAGE_NAME}:${ENVIRONMENT}-${GIT_TAG} .
         docker tag ${IMAGE_NAME}:${ENVIRONMENT}-${GIT_TAG} public.ecr.aws/w5r9l1c8/${IMAGE_NAME}:${ENVIRONMENT}-${GIT_TAG}
+        docker tag ${IMAGE_NAME}:${ENVIRONMENT}-${GIT_TAG} public.ecr.aws/w5r9l1c8/${IMAGE_NAME}:latest
         curl -LO https://storage.googleapis.com/container-structure-test/latest/container-structure-test-linux-amd64 && chmod +x container-structure-test-linux-amd64 && sudo mv container-structure-test-linux-amd64 /usr/local/bin/container-structure-test
         sudo yum install python3-pip -y
         sudo yum install make graphviz -y
@@ -42,6 +43,7 @@ phases:
         container-structure-test test --image ${IMAGE_NAME}:${ENVIRONMENT}-${GIT_TAG} --config cst_config.yaml
         echo Pushing the Docker image...
         docker push public.ecr.aws/w5r9l1c8/${IMAGE_NAME}:${ENVIRONMENT}-${GIT_TAG}
+        docker push public.ecr.aws/w5r9l1c8/${IMAGE_NAME}:latest
         PUBLIC_ECR_REPO=public.ecr.aws/w5r9l1c8/${IMAGE_NAME}:${ENVIRONMENT}-${GIT_TAG}
         echo Starting aws_processing_lambda CodeBuild project...
         aws codebuild start-build --project-name build_sdc_aws_processing_lambda \
