@@ -56,9 +56,14 @@ jobs:
           # Check if the current version matches the latest version
           if [ "$FILENAME" != "$PARSED_LATEST_VERSION" ]; then
             echo "Updating CDF library version in Dockerfile..."
+            # update version in the comment line
             awk -v latest_ver="$PARSED_LATEST_VERSION" '/Version: cdf/{gsub(/Version: cdf[^"]*/, "Version: " latest_ver)} 1' Dockerfile > Dockerfile.updated
             mv Dockerfile.updated Dockerfile
-            awk -v latest_ver="$PARSED_LATEST_VERSION" '/^RUN.*cdf[0-9._-]*-dist-cdf\.zip/{gsub(/unzip cdf[0-9._-]*-dist-cdf\.zip/, "unzip " latest_ver ".zip")} 1' Dockerfile > Dockerfile.updated
+            # update the download link
+            awk -v latest_ver="$PARSED_LATEST_VERSION" 'BEGIN{OFS=FS} /^RUN wget https:\/\/sdc-aws-support.s3.amazonaws.com\/cdf-binaries\/cdf[0-9._-]*-dist-cdf\.zip/{gsub(/cdf[0-9._-]*-dist-cdf\.zip/, latest_ver "-dist-cdf.zip")} 1' Dockerfile > Dockerfile.updated
+            mv Dockerfile.updated Dockerfile
+            # update the unzip command
+            awk -v latest_ver="$PARSED_LATEST_VERSION" 'BEGIN{OFS=FS} /^RUN unzip cdf[0-9._-]*-dist-cdf\.zip/{gsub(/unzip cdf[0-9._-]*-dist-cdf\.zip/, "unzip " latest_ver "-dist-cdf.zip")} 1' Dockerfile > Dockerfile.updated
             mv Dockerfile.updated Dockerfile
 
             echo is_up_to_date='' >> $GITHUB_OUTPUT

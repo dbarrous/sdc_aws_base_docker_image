@@ -9,7 +9,10 @@ RUN apt-get update && \
     ln -s /usr/bin/python3 /usr/bin/python
 
 # Download Pre-Built CDF Binaries - Version: cdf38_0-dist-cdf
-RUN wget https://sdc-aws-support.s3.amazonaws.com/cdf-binaries/cdf38_0-dist-cdf.zip && unzip cdf38_0-dist-cdf.zip && mv cdf /usr/local/
+RUN wget https://sdc-aws-support.s3.amazonaws.com/cdf-binaries/cdf38_0-dist-cdf.zip
+
+# Unzip CDF Binaries and move to /usr/local/cdf
+RUN unzip cdf38_0-dist-cdf.zip && mv cdf /usr/local/
 
 # add cdf binaries to the path
 ENV CDF_LIB="/usr/local/cdf/lib"
