@@ -139,4 +139,5 @@ jobs:
         uses: peter-evans/create-pull-request@v5.0.2
         with:
           title: 'Update CDF library to latest version (${{ steps.check_latest_version.outputs.latest_version }})'
-          body: 'Updates CDF library to latest version (${{ steps.check_latest_version.outputs.latest_version }})'
+          body: '**Note: Close and Re-Open Pull Request to Run Workflow Tests**\nUpdates CDF library to latest version (${{ steps.check_latest_version.outputs.latest_version }})'
+          draft: true
