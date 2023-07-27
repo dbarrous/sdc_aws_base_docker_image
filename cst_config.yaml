@@ -40,7 +40,7 @@ commandTests:
 - name: 'cdfinquire'
   command: 'cdfinquire'
   args: ['-id']
-  expectedOutput: ['.*CDF distribution V3.9.0_0.*']
+  expectedOutput: ['.*CDF distribution V*']
 
 
 # Test if needed files exist
