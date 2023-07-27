@@ -1,23 +1,19 @@
 # Image: Ubuntu 20.04 Stable, Official Image from Canonical
-FROM public.ecr.aws/lts/ubuntu:20.04_stable
+FROM public.ecr.aws/lts/ubuntu:22.04_stable
 
-# Performs updates and installs git, make, curl, python3.8, python3-pip, python3.8-dev and pylint packages
+# Performs updates and installs git, unzip, python3.8, python3-pip, python3.8-dev and pylint packages
 # Line 13 is required by the spacepy Python package
-# Line >=14 installs cdflib
 RUN apt-get update && \
     apt-get -y upgrade && \
-    apt-get -y install --no-install-recommends -y python3.8 python3-pip python3.8-dev pylint && \
-    ln -s /usr/bin/python3 /usr/bin/python && \
-    apt-get -y install git && \
-    apt-get -y install make && \
-    apt-get -y install curl && \
-    apt-get -y install wget && \
-    apt-get -y install gfortran 
+    apt-get -y install --no-install-recommends -y python3-pip pylint git wget unzip&& \
+    ln -s /usr/bin/python3 /usr/bin/python
 
-# Download Pre-Built CDF Binaries - Version: cdf38_0-dist-cdf
-RUN https://sdc-aws-support.s3.amazonaws.com/cdf-binaries/cdf38_0-dist-cdf.zip && unzip cdf38_0-dist-cdf.zip && mv cdf /usr/local/cdf
+# Download Pre-Built CDF Binaries - Version: cdf39_0-dist-cdf
+RUN wget https://sdc-aws-support.s3.amazonaws.com/cdf-binaries/cdf39_0-dist-cdf.zip && unzip cdf39_0-dist-cdf.zip && mv cdf /usr/local/
 
 # add cdf binaries to the path
+ENV CDF_LIB="/usr/local/cdf/lib"
+
 ENV PATH="${PATH}:/usr/local/cdf/bin"
 
 # Copy Python requirements.txt file into image (list of common dependencies)
