@@ -56,7 +56,7 @@ To make a change to this container image, please `fork` this repo, make the requ
 If you experience any issues in your development environment (`.devcontainer` environment on VSCode) when pulling this image from ECR, ensure you have the latest build by rebuilding your container to pull from latest.
 
 ## Dockerfile Details
-This Docker image is built from the official Canonical Ubuntu 20.04 image. It updates the system and installs necessary packages such as git, unzip, python3.8, python3-pip, and pylint. 
+This Docker image is built from the official Canonical Ubuntu 22.04 image. It updates the system and installs necessary packages such as git, unzip, python3.8, python3-pip, and pylint. 
 
 This Dockerfile also includes a process to download pre-built CDF binaries for data format support and copies a Python requirements.txt file into the image to be used for installing Python dependencies. 
 
