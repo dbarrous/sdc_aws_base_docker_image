@@ -5,7 +5,7 @@ FROM public.ecr.aws/lts/ubuntu:22.04_stable
 # Line 13 is required by the spacepy Python package
 RUN apt-get update && \
     apt-get -y upgrade && \
-    apt-get -y install --no-install-recommends -y python3-pip pylint git wget unzip&& \
+    apt-get -y install --no-install-recommends -y python3-pip pylint git wget unzip make && \
     ln -s /usr/bin/python3 /usr/bin/python
 
 # Download Pre-Built CDF Binaries - Version: cdf39_0-dist-cdf
@@ -17,7 +17,11 @@ RUN unzip cdf39_0-dist-cdf.zip && mv cdf /usr/local/
 # add cdf binaries to the path
 ENV CDF_LIB="/usr/local/cdf/lib"
 
+# For CDF Binaries in path
 ENV PATH="${PATH}:/usr/local/cdf/bin"
+
+# For sphinx to build in the container
+ENV LC_ALL=C
 
 # Copy Python requirements.txt file into image (list of common dependencies)
 COPY requirements.txt  .
