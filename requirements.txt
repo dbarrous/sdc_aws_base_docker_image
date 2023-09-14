@@ -1,6 +1,7 @@
 numpy==1.24.4
 astropy==5.2.2
 sunpy==4.1.7 # not currently needed
+ndcube==2.1.3 # Adding NDCube to support spectra and high-dimensional data in hermes_core data container
 flake8==6.0.0 # for code style
 black==23.7.0 # for code style
 pytest==7.4.0 # for testing
