@@ -19,7 +19,7 @@ with pathlib.Path("/requirements.txt").open() as requirements_txt:
             package_name = str(package).split("==")[0].split("@")[0].replace("-", "_")
         else:
             package_name = str(package).split(">=")[0].split("@")[0].replace("-", "_")
-            
+
         if package_name not in EXCEPTION_LIST:
             spec = importlib.util.find_spec(package_name)
             if spec is None:
