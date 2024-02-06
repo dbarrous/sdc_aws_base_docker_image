@@ -24,26 +24,26 @@ This container is built and pushed to the public repo ECR automatically by AWS C
 - pylint
 
 ## Included Python Packages
-- numpy (v1.24.4)
-- astropy (v5.2.2)
-- sunpy (v4.1.7)
-- flake8 (v6.0.0) (For code style)
-- black (v23.7.0) (For code style)
-- pytest (v7.4.0) (For testing)
-- pytest-astropy (v0.10.0) (For testing)
-- pytest-cov (v4.1.0) (For testing)
-- pre-commit (v3.3.3)
-- sphinx (v6.2.1) (For documentation)
-- sphinx-automodapi (v0.15.0) (For documentation)
-- sphinx-changelog (v1.3.0) (For documentation)
-- ipython (v8.12.2) (For easier debugging)
+- numpy 
+- astropy 
+- sunpy 
+- flake8 (For code style)
+- black (For code style)
+- pytest (For testing)
+- pytest-astropy(For testing)
+- pytest-cov (For testing)
+- pre-commit
+- sphinx (For documentation)
+- sphinx-automodapi (For documentation)
+- sphinx-changelog (For documentation)
+- ipython (For easier debugging)
 - hermes core (For instrument packages)
-- boto3 (v1.28.4) (For AWS SDK)
-- awslambdaric (v2.0.4) (For use with interfacing with AWS Lambda)
-- matplotlib (v3.7.2)
-- scipy (v1.10.1)
-- spacepy (v0.4.1) (For CDF file support)
-- ipykernel (v6.24.0) (For Jupyter notebook)
+- boto3 (For AWS SDK)
+- awslambdaric (For use with interfacing with AWS Lambda)
+- matplotlib
+- scipy
+- spacepy (For CDF file support)
+- ipykernel (For Jupyter notebook)
 - ccsdspy (For parsing CCSDS binary files)
 
 ### **Tests:**
