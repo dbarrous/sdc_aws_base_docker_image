@@ -14,9 +14,6 @@ RUN wget https://sdc-aws-support.s3.amazonaws.com/cdf-binaries/cdf39_0-dist-cdf.
 # Unzip CDF Binaries and move to /usr/local/cdf
 RUN unzip cdf39_0-dist-cdf.zip && mv cdf /usr/local/
 
-# add cdf binaries to the path
-ENV CDF_LIB="/usr/local/cdf/lib"
-
 # For CDF Binaries in path
 ENV PATH="${PATH}:/usr/local/cdf/bin"
 
